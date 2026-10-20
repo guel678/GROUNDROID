@@ -18,7 +18,7 @@ export interface DatasetImportResult extends ServiceResult<ReferenceDataset> {
   warnings: string[]
 }
 
-export interface SamplingPlanResult extends ServiceResult<SamplingPlan> {}
+export type SamplingPlanResult = ServiceResult<SamplingPlan>
 
 export interface RoverCommandAcknowledgement extends ServiceResult<RoverMission> {
   deliveredToHardware: boolean

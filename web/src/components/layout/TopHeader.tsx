@@ -1,19 +1,13 @@
 import { Menu, UserRound } from 'lucide-react'
+import { useExperiment } from '../../state/ExperimentProvider'
 
 interface TopHeaderProps {
   meta: { title: string; description: string }
   onOpenNavigation: () => void
 }
 
-const timestamp = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  hour: 'numeric',
-  minute: '2-digit',
-}).format(new Date())
-
 export function TopHeader({ meta, onOpenNavigation }: TopHeaderProps) {
+  const { state, dispatch } = useExperiment()
   return (
     <header className="top-header">
       <button
@@ -31,12 +25,12 @@ export function TopHeader({ meta, onOpenNavigation }: TopHeaderProps) {
       <div className="top-header__tools">
         <label className="experiment-select">
           <span className="sr-only">Current experiment</span>
-          <select defaultValue="test-field">
-            <option value="test-field">Experiment 1 · Test Field</option>
+          <select value={state.activeExperimentId ?? ''} onChange={(event) => dispatch({ type: 'experiment/selected', experimentId: event.target.value })}>
+            {state.experiments.map((experiment, index) => <option key={experiment.id} value={experiment.id}>Experiment {index + 1} · {experiment.name}</option>)}
           </select>
         </label>
         <span className="connection-pill"><span aria-hidden="true" /> Simulator online</span>
-        <time dateTime={new Date().toISOString()}>{timestamp}</time>
+        <time dateTime="2025-04-27T10:24:00.000Z">Apr 27, 2025 10:24 AM</time>
         <button className="profile-button" type="button" aria-label="Open user menu">
           <UserRound size={18} aria-hidden="true" />
         </button>

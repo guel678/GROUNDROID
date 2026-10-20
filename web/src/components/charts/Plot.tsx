@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import type { Config, Data, Layout } from 'plotly.js'
 
-const ReactPlot = lazy(() => import('react-plotly.js'))
+const ReactPlot = lazy(() => import('./PlotlyRenderer'))
 
 export function Plot({ data, layout, ariaLabel }: { data: Data[]; layout?: Partial<Layout>; ariaLabel: string }) {
   const sharedLayout: Partial<Layout> = {
@@ -16,7 +16,7 @@ export function Plot({ data, layout, ariaLabel }: { data: Data[]; layout?: Parti
   return (
     <div className="plotly-shell" role="img" aria-label={ariaLabel}>
       <Suspense fallback={<div className="plotly-shell__loading">Preparing visualization…</div>}>
-        <ReactPlot data={data} layout={sharedLayout} config={config} useResizeHandler className="plotly-chart" style={{ width: '100%', height: '100%' }} />
+        <ReactPlot data={data} layout={sharedLayout} config={config} className="plotly-chart" style={{ width: '100%', height: '100%' }} />
       </Suspense>
     </div>
   )

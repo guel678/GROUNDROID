@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import type { SamplingPoint } from '../../types/domain'
 import { EmptyState } from '../ui/EmptyState'
@@ -23,7 +23,7 @@ export function FieldPlot({ width, length, points, route = [], rover, selectedPo
   const plotSize = viewSize - pad * 2
   const scaleX = (x: number) => pad + (x / Math.max(width, 1)) * plotSize
   const scaleY = (y: number) => viewSize - pad - (y / Math.max(length, 1)) * plotSize
-  const routePath = useMemo(() => route.map((point, index) => `${index ? 'L' : 'M'} ${scaleX(point.x)} ${scaleY(point.y)}`).join(' '), [route, width, length])
+  const routePath = route.map((point, index) => `${index ? 'L' : 'M'} ${scaleX(point.x)} ${scaleY(point.y)}`).join(' ')
   const ticks = [0, 0.25, 0.5, 0.75, 1]
 
   if (points.length === 0) return <EmptyState title="No sampling locations available" description="Import a validated dataset or generate a sampling plan to populate this field." />
