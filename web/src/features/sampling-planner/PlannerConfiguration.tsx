@@ -1,0 +1,8 @@
+import { Button } from '../../components/ui/Button'
+import { Field } from '../../components/ui/Field'
+import type { SamplingConfig } from '../../services/samplingService'
+
+export function PlannerConfiguration({ config, maxRows, running, onChange, onRun }: { config: SamplingConfig; maxRows: number; running: boolean; onChange: (config: SamplingConfig) => void; onRun: () => void }) {
+  const invalid = config.podModes < 1 || config.podModes > maxRows || config.pointCount < 1 || config.pointCount > maxRows
+  return <div className="planner-config"><Field id="soil-property" label="Soil property"><select id="soil-property" value={config.property} onChange={(e) => onChange({ ...config, property: e.target.value as SamplingConfig['property'] })}><option value="moisture">Moisture</option><option value="compaction">Compaction</option><option value="nitrogen">Nitrogen</option><option value="phosphorus">Phosphorus</option><option value="potassium">Potassium</option></select></Field><Field id="pod-modes" label="Number of illustrative modes" hint={`Valid range: 1–${maxRows}`}><input id="pod-modes" type="number" min="1" max={maxRows} value={config.podModes} onChange={(e) => onChange({ ...config, podModes: Number(e.target.value) })} /></Field><Field id="point-count" label="Number of sampling points" hint={`Cannot exceed ${maxRows} dataset rows`}><input id="point-count" type="number" min="1" max={maxRows} value={config.pointCount} onChange={(e) => onChange({ ...config, pointCount: Number(e.target.value) })} /></Field><Button disabled={invalid || running || maxRows === 0} onClick={onRun}>{running ? 'Preparing example…' : 'Run simulated planner'}</Button></div>
+}
