@@ -98,6 +98,70 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .status-badge--danger { color: #8d2424; background: #fde7e7; }
 .status-badge--neutral { color: #4f6158; background: #edf1ef; }
 
+.provenance-badge { display: inline-flex; align-items: center; gap: 5px; width: fit-content; min-height: 22px; padding: 2px 8px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); background: #f9fbfa; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.provenance-badge--demo { color: #57675f; }
+.provenance-badge--imported { color: #245f84; background: #eef7fc; border-color: #cde2ef; }
+.provenance-badge--algorithm-generated { color: #755012; background: #fff8e8; border-color: #f2ddb2; }
+.provenance-badge--real { color: var(--color-primary-strong); background: var(--color-primary-soft); border-color: #c8e2d2; }
+.state-panel { min-height: 180px; display: grid; place-content: center; justify-items: center; gap: 7px; padding: 24px; color: var(--color-text-muted); text-align: center; border: 1px dashed #bdcec4; border-radius: var(--radius-md); background: linear-gradient(180deg, #fbfdfc, #f5f9f7); }
+.state-panel strong { color: var(--color-text); font-size: 14px; }
+.state-panel p { max-width: 420px; margin: 0; font-size: 12px; line-height: 1.55; }
+.state-panel--error { color: var(--color-danger); border-color: #efc4c4; background: #fffafa; }
+.form-field { display: grid; gap: 6px; }
+.form-field > label { font-size: 11px; font-weight: 700; color: #34473f; }
+.form-field input, .form-field select, .form-field textarea { width: 100%; min-height: 40px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 9px 11px; color: var(--color-text); background: var(--color-surface); transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); }
+.form-field textarea { min-height: 88px; resize: vertical; }
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: #adc5b7; }
+.form-field--error input, .form-field--error select, .form-field--error textarea { border-color: var(--color-danger); }
+.form-field__hint, .form-field__message { color: var(--color-text-muted); font-size: 10px; line-height: 1.4; }
+.form-field__message { color: var(--color-danger); }
+.progress-block { display: grid; gap: 7px; }
+.progress-block__label { display: flex; justify-content: space-between; gap: 12px; color: var(--color-text-muted); font-size: 10px; }
+.progress-block__label strong { color: var(--color-text); font-variant-numeric: tabular-nums; }
+.progress-track { height: 7px; overflow: hidden; border-radius: 999px; background: #e8eeeb; }
+.progress-track > span { display: block; height: 100%; border-radius: inherit; background: var(--color-primary); transition: width var(--duration-normal) var(--ease-out); }
+.tabs { display: flex; min-width: 0; overflow-x: auto; border-bottom: 1px solid var(--color-border); scrollbar-width: thin; }
+.tabs__tab { position: relative; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: 0 0 auto; border: 0; padding: 0 18px; color: var(--color-text-muted); background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; }
+.tabs__tab:hover { color: var(--color-primary-strong); background: #f5f9f7; }
+.tabs__tab--active { color: white; background: var(--color-primary); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.tabs__tab--active:hover { color: white; background: var(--color-primary-strong); }
+.data-table-wrap { width: 100%; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
+.data-table th { position: sticky; top: 0; z-index: 1; padding: 8px 10px; color: #4f6158; background: #f1f6f3; text-align: left; font-weight: 800; }
+.data-table td { padding: 7px 10px; border-top: 1px solid #edf1ef; color: #30433a; font-variant-numeric: tabular-nums; }
+.data-table tbody tr:hover td { background: #f8fbf9; }
+.data-table__numeric { text-align: right !important; }
+.field-plot { position: relative; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; }
+.field-plot__canvas { min-width: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: #fbfdfc; }
+.field-plot__canvas svg { display: block; width: 100%; max-height: 430px; aspect-ratio: 1; transform: scale(var(--field-zoom)); transition: transform var(--duration-normal) var(--ease-out); }
+.field-plot__canvas text { fill: #607168; font-size: 9px; font-family: inherit; }
+.field-plot__ground { fill: #edf7f0; stroke: #9fc6ad; stroke-width: 1; }
+.field-plot__grid { stroke: #cfe1d5; stroke-width: 0.7; }
+.field-plot__route { fill: none; stroke: var(--color-primary); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.field-plot__marker { stroke-width: 1.5; cursor: pointer; transition: r var(--duration-fast) var(--ease-out); }
+.field-plot__marker--completed { fill: var(--color-primary); stroke: white; }
+.field-plot__marker--pending { fill: white; stroke: var(--color-primary); }
+.field-plot__marker-group:hover .field-plot__marker { r: 7; }
+.field-plot__marker-group:focus { outline: none; }
+.field-plot__marker-group:focus .field-plot__marker { stroke: #e8a23b; stroke-width: 3; }
+.field-plot__pending-dot { fill: var(--color-primary); pointer-events: none; }
+.field-plot__rover { fill: #27483a; stroke: white; stroke-width: 1; }
+.field-plot__axis-title { fill: var(--color-text) !important; font-size: 10px !important; font-weight: 700; }
+.field-plot__legend { align-self: start; display: grid; gap: 10px; padding: 8px 4px; color: var(--color-text-muted); font-size: 9px; white-space: nowrap; }
+.field-plot__legend span { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--color-primary); }
+.legend-dot--completed { background: var(--color-primary); }
+.legend-dot--pending { position: relative; background: white; }
+.legend-dot--pending::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--color-primary); }
+.legend-square { width: 9px; height: 9px; border-radius: 2px; background: #27483a; }
+.legend-line { width: 14px; border-top: 1px dashed var(--color-primary); }
+.field-plot__controls { position: absolute; right: 64px; bottom: 10px; display: grid; gap: 4px; }
+.field-plot__controls button { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); background: rgb(255 255 255 / 0.94); cursor: pointer; box-shadow: 0 4px 10px rgb(20 92 59 / 0.08); }
+.field-plot__controls button:hover { color: var(--color-primary-strong); border-color: #a9c4b3; }
+.plotly-shell { width: 100%; min-height: 320px; height: 100%; }
+.plotly-chart { min-height: 320px; }
+.plotly-shell__loading { min-height: 320px; display: grid; place-items: center; color: var(--color-text-muted); font-size: 12px; }
+
 @media (max-width: 980px) {
   .top-header__tools time, .connection-pill { display: none; }
   .top-header { padding-inline: 18px; }
@@ -118,6 +182,9 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .experiment-select { display: none; }
   .navigation-scrim { position: fixed; inset: 0; z-index: 25; display: block; width: 100%; height: 100%; border: 0; background: rgb(23 43 36 / 0.36); }
   .main-content { padding: 16px 14px 32px; }
+  .field-plot { grid-template-columns: minmax(0, 1fr); }
+  .field-plot__legend { display: flex; flex-wrap: wrap; padding: 0; }
+  .field-plot__controls { right: 10px; bottom: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
