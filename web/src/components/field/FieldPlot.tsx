@@ -20,11 +20,14 @@ const viewSize = 320
 
 export function FieldPlot({ width, length, points, route = [], rover, selectedPointId, onPointSelect, ariaLabel = 'Field sampling map' }: FieldPlotProps) {
   const [zoom, setZoom] = useState(1)
+  const [inspectedPointId, setInspectedPointId] = useState<string>()
   const plotSize = viewSize - pad * 2
   const scaleX = (x: number) => pad + (x / Math.max(width, 1)) * plotSize
   const scaleY = (y: number) => viewSize - pad - (y / Math.max(length, 1)) * plotSize
   const routePath = route.map((point, index) => `${index ? 'L' : 'M'} ${scaleX(point.x)} ${scaleY(point.y)}`).join(' ')
   const ticks = [0, 0.25, 0.5, 0.75, 1]
+  const inspectedPoint = points.find(({ id }) => id === inspectedPointId)
+  const selectPoint = (point: SamplingPoint) => { setInspectedPointId(point.id); onPointSelect?.(point) }
 
   if (points.length === 0) return <EmptyState title="No sampling locations available" description="Import a validated dataset or generate a sampling plan to populate this field." />
 
@@ -41,8 +44,8 @@ export function FieldPlot({ width, length, points, route = [], rover, selectedPo
           </g>)}
           {routePath ? <path d={routePath} className="field-plot__route" /> : null}
           {points.map((point) => (
-            <g key={point.id} role={onPointSelect ? 'button' : undefined} tabIndex={onPointSelect ? 0 : undefined} aria-label={`${point.id}, ${point.status}, ${point.x} meters X, ${point.y} meters Y`} onClick={() => onPointSelect?.(point)} onKeyDown={(event) => { if ((event.key === 'Enter' || event.key === ' ') && onPointSelect) onPointSelect(point) }} className="field-plot__marker-group">
-              <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={selectedPointId === point.id ? 7 : 5} className={`field-plot__marker field-plot__marker--${point.status}`} />
+            <g key={point.id} role="button" tabIndex={0} aria-label={`${point.id}, ${point.status}, ${point.x} meters X, ${point.y} meters Y`} onClick={() => selectPoint(point)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') selectPoint(point) }} className="field-plot__marker-group">
+              <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={(selectedPointId ?? inspectedPointId) === point.id ? 7 : 5} className={`field-plot__marker field-plot__marker--${point.status}`} />
               {point.status === 'pending' ? <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={2} className="field-plot__pending-dot" /> : null}
             </g>
           ))}
@@ -58,6 +61,7 @@ export function FieldPlot({ width, length, points, route = [], rover, selectedPo
         {routePath ? <span><i className="legend-line" />Route</span> : null}
       </div>
       <FieldPlotControls onZoomIn={() => setZoom((value) => Math.min(1.3, value + 0.1))} onZoomOut={() => setZoom((value) => Math.max(0.8, value - 0.1))} onReset={() => setZoom(1)} />
+      {inspectedPoint ? <p className="field-plot__selection" role="status"><strong>{inspectedPoint.id} · {inspectedPoint.status}</strong><span>{inspectedPoint.x} m × {inspectedPoint.y} m</span></p> : null}
     </div>
   )
 }

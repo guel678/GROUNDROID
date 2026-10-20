@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 
@@ -24,5 +25,15 @@ describe('DashboardPage', () => {
   it('shows a useful empty state when no experiment is selected', () => {
     renderPage({ ...demoAppState, activeExperimentId: null })
     expect(screen.getByText(/no active experiment/i)).toBeInTheDocument()
+  })
+
+  it('lets a researcher inspect a mapped sampling point', async () => {
+    const user = userEvent.setup()
+    renderPage()
+
+    await user.click(screen.getByRole('button', { name: /SP-01, completed/i }))
+
+    expect(screen.getByText(/SP-01 · completed/i)).toBeInTheDocument()
+    expect(screen.getByText(/2 m × 2 m/i)).toBeInTheDocument()
   })
 })

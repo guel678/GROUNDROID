@@ -13,6 +13,9 @@ describe('experimentReducer', () => {
     expect(next).not.toBe(previous)
     expect(next.activeExperimentId).toBe(demoExperiments[1].id)
     expect(previous.activeExperimentId).toBe(demoExperiments[0].id)
+    expect(next.mission.experimentId).toBe(demoExperiments[1].id)
+    expect(next.mission.waypointIds).toEqual(demoExperiments[1].samplingPoints.map(({ id }) => id))
+    expect(next.mission.currentWaypointIndex).toBe(0)
   })
 
   it('updates field configuration while preserving provenance', () => {

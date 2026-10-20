@@ -1,4 +1,18 @@
-import type { ExperimentState, SamplingPlan, SoilMeasurement } from '../types/domain'
+import type { Experiment, ExperimentState, RoverMission, SamplingPlan, SoilMeasurement } from '../types/domain'
+
+function createMissionForExperiment(experiment: Experiment, previous: RoverMission): RoverMission {
+  const firstPoint = experiment.samplingPoints[0]
+  return {
+    ...previous,
+    id: `mission-${experiment.id}`,
+    experimentId: experiment.id,
+    waypointIds: experiment.samplingPoints.map(({ id }) => id),
+    currentWaypointIndex: 0,
+    status: 'idle',
+    position: firstPoint ? { x: firstPoint.x, y: firstPoint.y } : { x: 0, y: 0 },
+    lastCommunicationAt: experiment.createdAt,
+  }
+}
 
 export type ExperimentAction =
   | { type: 'experiment/selected'; experimentId: string }
@@ -7,14 +21,18 @@ export type ExperimentAction =
   | { type: 'sampling/planStored'; experimentId: string; plan: SamplingPlan }
   | { type: 'mission/advanced'; steps?: number }
   | { type: 'mission/reset' }
+  | { type: 'mission/replaced'; mission: RoverMission }
   | { type: 'mission/statusChanged'; status: ExperimentState['mission']['status'] }
 
 export function experimentReducer(state: ExperimentState, action: ExperimentAction): ExperimentState {
   switch (action.type) {
     case 'experiment/selected':
-      return state.experiments.some(({ id }) => id === action.experimentId)
-        ? { ...state, activeExperimentId: action.experimentId }
-        : state
+      {
+        const experiment = state.experiments.find(({ id }) => id === action.experimentId)
+        return experiment
+          ? { ...state, activeExperimentId: action.experimentId, mission: createMissionForExperiment(experiment, state.mission) }
+          : state
+      }
     case 'experiment/configurationUpdated':
       return {
         ...state,
@@ -62,6 +80,8 @@ export function experimentReducer(state: ExperimentState, action: ExperimentActi
     }
     case 'mission/reset':
       return { ...state, mission: { ...state.mission, currentWaypointIndex: 0, status: 'idle' } }
+    case 'mission/replaced':
+      return action.mission.experimentId === state.activeExperimentId ? { ...state, mission: action.mission } : state
     case 'mission/statusChanged':
       return { ...state, mission: { ...state.mission, status: action.status } }
     default:
