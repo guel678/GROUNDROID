@@ -1,4 +1,4 @@
-import { Menu, UserRound } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { useExperiment } from '../../state/ExperimentProvider'
 
 interface TopHeaderProps {
@@ -30,10 +30,6 @@ export function TopHeader({ meta, onOpenNavigation }: TopHeaderProps) {
           </select>
         </label>
         <span className="connection-pill"><span aria-hidden="true" /> Simulator online</span>
-        <time dateTime="2025-04-27T10:24:00.000Z" title="Deterministic demonstration timestamp">Demo · Apr 27, 2025 10:24 AM</time>
-        <button className="profile-button" type="button" aria-label="Open user menu">
-          <UserRound size={18} aria-hidden="true" />
-        </button>
       </div>
     </header>
   )

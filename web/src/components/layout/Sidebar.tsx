@@ -1,7 +1,5 @@
 import {
   Bot,
-  ChevronLeft,
-  ChevronRight,
   ClipboardList,
   Gauge,
   LayoutDashboard,
@@ -12,9 +10,7 @@ import type { LucideIcon } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 interface SidebarProps {
-  collapsed: boolean
   mobileOpen: boolean
-  onCollapse: () => void
   onNavigate: () => void
 }
 
@@ -37,7 +33,7 @@ function GroundroidMark() {
   )
 }
 
-export function Sidebar({ collapsed, mobileOpen, onCollapse, onNavigate }: SidebarProps) {
+export function Sidebar({ mobileOpen, onNavigate }: SidebarProps) {
   return (
     <aside className={`sidebar ${mobileOpen ? 'sidebar--open' : ''}`} aria-label="Groundroid sidebar">
       <div className="sidebar__brand">
@@ -65,14 +61,6 @@ export function Sidebar({ collapsed, mobileOpen, onCollapse, onNavigate }: Sideb
 
       <div className="sidebar__footer">
         <span className="demo-chip"><span aria-hidden="true" /> Demo workspace</span>
-        <button
-          className="sidebar__collapse"
-          type="button"
-          onClick={onCollapse}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </button>
       </div>
     </aside>
   )

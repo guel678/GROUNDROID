@@ -33,16 +33,13 @@ const pageMeta: Record<string, { title: string; description: string }> = {
 
 export function AppShell() {
   const [navigationOpen, setNavigationOpen] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
   const { pathname } = useLocation()
   const meta = pageMeta[pathname] ?? pageMeta['/']
 
   return (
-    <div className={collapsed ? 'app-shell app-shell--collapsed' : 'app-shell'}>
+    <div className="app-shell">
       <Sidebar
-        collapsed={collapsed}
         mobileOpen={navigationOpen}
-        onCollapse={() => setCollapsed((current) => !current)}
         onNavigate={() => setNavigationOpen(false)}
       />
       {navigationOpen ? (
