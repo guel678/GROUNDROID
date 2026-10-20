@@ -1,0 +1,10 @@
+import { useState } from 'react'
+import { Button } from '../../components/ui/Button'
+import { Field } from '../../components/ui/Field'
+import type { Experiment } from '../../types/domain'
+
+export function FieldConfigurationForm({ experiment, onSave }: { experiment: Experiment; onSave: (changes: { name: string; description: string; width: number; length: number; coordinateReference: string }) => void }) {
+  const [form, setForm] = useState({ name: experiment.name, description: experiment.description, width: experiment.width, length: experiment.length, coordinateReference: experiment.coordinateReference }); const [saved, setSaved] = useState(false)
+  const valid = form.name.trim() && form.width > 0 && form.length > 0
+  return <form className="configuration-form" onSubmit={(event) => { event.preventDefault(); if (valid) { onSave(form); setSaved(true) } }}><Field id="experiment-name" label="Experiment name"><input id="experiment-name" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required /></Field><div className="form-row"><Field id="field-width" label="Field width (m)"><input id="field-width" type="number" min="1" value={form.width} onChange={(event) => setForm({ ...form, width: Number(event.target.value) })} /></Field><Field id="field-length" label="Field length (m)"><input id="field-length" type="number" min="1" value={form.length} onChange={(event) => setForm({ ...form, length: Number(event.target.value) })} /></Field></div><Field id="coordinate-reference" label="Coordinate reference"><select id="coordinate-reference" value={form.coordinateReference} onChange={(event) => setForm({ ...form, coordinateReference: event.target.value })}><option>Local Field (0,0)</option><option>WGS 84</option></select></Field><Field id="description" label="Description"><textarea id="description" value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} /></Field><Button type="submit" disabled={!valid}>Save configuration</Button>{saved ? <span className="save-note" role="status">Configuration saved locally.</span> : null}</form>
+}
