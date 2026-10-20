@@ -1,5 +1,10 @@
 import { GroundroidRoutes } from './routes'
+import { ExperimentProvider } from '../state/ExperimentProvider'
 
 export function App() {
-  return <GroundroidRoutes />
+  return (
+    <ExperimentProvider>
+      <GroundroidRoutes />
+    </ExperimentProvider>
+  )
 }
