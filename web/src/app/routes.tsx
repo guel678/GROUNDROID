@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { AppShell } from '../components/layout/AppShell'
+import { DashboardPage } from '../features/dashboard/DashboardPage'
 
 function PagePlaceholder({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +18,7 @@ export function GroundroidRoutes() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route index element={<PagePlaceholder>Field Dashboard</PagePlaceholder>} />
+        <Route index element={<DashboardPage />} />
         <Route path="field-data" element={<PagePlaceholder>Field Data &amp; Configuration</PagePlaceholder>} />
         <Route path="sampling-planner" element={<PagePlaceholder>Data-Driven Sampling Planner</PagePlaceholder>} />
         <Route path="rover-control" element={<PagePlaceholder>Rover Mission Control</PagePlaceholder>} />

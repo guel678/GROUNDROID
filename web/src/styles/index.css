@@ -161,6 +161,41 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .plotly-shell { width: 100%; min-height: 320px; height: 100%; }
 .plotly-chart { min-height: 320px; }
 .plotly-shell__loading { min-height: 320px; display: grid; place-items: center; color: var(--color-text-muted); font-size: 12px; }
+.page-stack { display: grid; gap: 16px; }
+.page-context { min-height: 30px; display: flex; align-items: center; gap: 10px; color: var(--color-text-muted); font-size: 10px; }
+.panel { min-width: 0; padding: 16px; }
+.panel__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.panel__header h2 { margin: 2px 0 0; font-size: 14px; letter-spacing: -0.02em; }
+.panel__eyebrow { margin: 0; color: var(--color-text-muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.muted-label { color: var(--color-text-muted); font-size: 9px; }
+.text-link { color: var(--color-primary-strong); font-size: 10px; font-weight: 750; text-decoration: none; }
+.text-link:hover { text-decoration: underline; }
+.button-link { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); padding: 0 14px; font-size: 11px; font-weight: 750; text-decoration: none; }
+.button-link--secondary { color: var(--color-primary-strong); border: 1px solid #b7cbbf; background: white; }
+.button-link--secondary:hover { background: var(--color-primary-soft); }
+.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.summary-card { min-height: 112px; display: flex; align-items: flex-start; gap: 12px; padding: 15px; }
+.summary-card__icon { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 9px; color: var(--color-primary-strong); background: var(--color-primary-soft); }
+.summary-card > div { min-width: 0; display: grid; gap: 4px; }
+.summary-card__label { color: var(--color-text-muted); font-size: 10px; font-weight: 650; }
+.summary-card strong { font-size: 20px; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.summary-card small { color: var(--color-text-muted); font-size: 9px; line-height: 1.35; }
+.dashboard-main-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, 0.8fr); gap: 14px; }
+.dashboard-lower-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; }
+.detail-list { display: grid; margin: 0 0 14px; }
+.detail-list > div { display: grid; grid-template-columns: 42% 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid #edf1ef; font-size: 10px; }
+.detail-list dt { color: var(--color-text-muted); }
+.detail-list dd { margin: 0; text-align: right; font-weight: 650; line-height: 1.55; text-transform: capitalize; }
+.online-dot { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: var(--color-primary); }
+.rover-summary .button-link { width: 100%; }
+.activity-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.activity-list li { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid #edf1ef; color: #34473f; font-size: 10px; }
+.activity-list time { color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.reading-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+.reading-grid > div { min-width: 0; display: grid; gap: 5px; padding: 10px; border-radius: var(--radius-sm); background: #f4f8f6; }
+.reading-grid span { color: var(--color-text-muted); font-size: 9px; }
+.reading-grid strong { font-size: 12px; font-variant-numeric: tabular-nums; }
+@media (max-width: 1100px) { .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .reading-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 @media (max-width: 980px) {
   .top-header__tools time, .connection-pill { display: none; }
@@ -185,6 +220,9 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .field-plot { grid-template-columns: minmax(0, 1fr); }
   .field-plot__legend { display: flex; flex-wrap: wrap; padding: 0; }
   .field-plot__controls { right: 10px; bottom: 38px; }
+  .summary-grid, .dashboard-main-grid, .dashboard-lower-grid { grid-template-columns: 1fr; }
+  .summary-card { min-height: 96px; }
+  .reading-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
