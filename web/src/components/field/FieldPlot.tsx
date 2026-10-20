@@ -45,6 +45,7 @@ export function FieldPlot({ width, length, points, route = [], rover, selectedPo
           {routePath ? <path d={routePath} className="field-plot__route" /> : null}
           {points.map((point) => (
             <g key={point.id} role="button" tabIndex={0} aria-label={`${point.id}, ${point.status}, ${point.x} meters X, ${point.y} meters Y`} onClick={() => selectPoint(point)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') selectPoint(point) }} className="field-plot__marker-group">
+              <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={23} className="field-plot__hit-target" />
               <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={(selectedPointId ?? inspectedPointId) === point.id ? 7 : 5} className={`field-plot__marker field-plot__marker--${point.status}`} />
               {point.status === 'pending' ? <circle cx={scaleX(point.x)} cy={scaleY(point.y)} r={2} className="field-plot__pending-dot" /> : null}
             </g>

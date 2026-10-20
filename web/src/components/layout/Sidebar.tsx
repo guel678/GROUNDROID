@@ -58,10 +58,6 @@ export function Sidebar({ mobileOpen, onNavigate }: SidebarProps) {
           </NavLink>
         ))}
       </nav>
-
-      <div className="sidebar__footer">
-        <span className="demo-chip"><span aria-hidden="true" /> Demo workspace</span>
-      </div>
     </aside>
   )
 }

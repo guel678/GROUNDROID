@@ -23,6 +23,12 @@
   --duration-fast: 120ms;
   --duration-normal: 180ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
 }
 
 * { box-sizing: border-box; scrollbar-color: #a8beb1 #eef3f0; scrollbar-width: thin; }
@@ -99,12 +105,12 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .state-panel p { max-width: 420px; margin: 0; font-size: 12px; line-height: 1.55; }
 .state-panel--error { color: var(--color-danger); border-color: #efc4c4; background: #fffafa; }
 .form-field { display: grid; gap: 6px; }
-.form-field > label { font-size: 11px; font-weight: 700; color: #34473f; }
+.form-field > label { font-size: 12px; font-weight: 700; color: #34473f; }
 .form-field input, .form-field select, .form-field textarea { width: 100%; min-height: 44px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 9px 11px; color: var(--color-text); background: var(--color-surface); transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); }
 .form-field textarea { min-height: 88px; resize: vertical; }
 .form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: #adc5b7; }
 .form-field--error input, .form-field--error select, .form-field--error textarea { border-color: var(--color-danger); }
-.form-field__hint, .form-field__message { color: var(--color-text-muted); font-size: 10px; line-height: 1.4; }
+.form-field__hint, .form-field__message { color: var(--color-text-muted); font-size: 11px; line-height: 1.45; }
 .form-field__message { color: var(--color-danger); }
 .progress-block { display: grid; gap: 7px; }
 .progress-block__label { display: flex; justify-content: space-between; gap: 12px; color: var(--color-text-muted); font-size: 10px; }
@@ -117,7 +123,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .tabs__tab--active { color: var(--color-primary-strong); background: transparent; box-shadow: inset 0 -2px var(--color-primary); }
 .tabs__tab--active:hover { color: var(--color-primary-strong); background: var(--color-primary-soft); }
 .data-table-wrap { width: 100%; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
-.data-table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 11px; white-space: nowrap; }
 .data-table th { position: sticky; top: 0; z-index: 1; padding: 8px 10px; color: #4f6158; background: #f1f6f3; text-align: left; font-weight: 800; }
 .data-table td { padding: 7px 10px; border-top: 1px solid #edf1ef; color: #30433a; font-variant-numeric: tabular-nums; }
 .data-table tbody tr:hover td { background: #f8fbf9; }
@@ -129,7 +135,8 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .field-plot__ground { fill: #edf7f0; stroke: #9fc6ad; stroke-width: 1; }
 .field-plot__grid { stroke: #cfe1d5; stroke-width: 0.7; }
 .field-plot__route { fill: none; stroke: var(--color-primary); stroke-width: 1.6; stroke-dasharray: 5 4; }
-.field-plot__marker { stroke-width: 1.5; cursor: pointer; transition: r var(--duration-fast) var(--ease-out); }
+.field-plot__hit-target { fill: transparent; pointer-events: all; }
+.field-plot__marker { pointer-events: none; stroke-width: 1.5; cursor: pointer; transition: r var(--duration-fast) var(--ease-out); }
 .field-plot__marker--completed { fill: var(--color-primary); stroke: white; }
 .field-plot__marker--pending { fill: white; stroke: var(--color-primary); }
 .field-plot__marker-group:hover .field-plot__marker { r: 7; }
@@ -149,7 +156,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .legend-square { width: 9px; height: 9px; border-radius: 2px; background: #27483a; }
 .legend-line { width: 14px; border-top: 1px dashed var(--color-primary); }
 .field-plot__controls { position: absolute; right: 64px; bottom: 10px; display: grid; gap: 4px; }
-.field-plot__controls button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); background: rgb(255 255 255 / 0.96); cursor: pointer; box-shadow: 0 4px 10px rgb(20 92 59 / 0.08); }
+.field-plot__controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); background: rgb(255 255 255 / 0.96); cursor: pointer; box-shadow: 0 4px 10px rgb(20 92 59 / 0.08); }
 .field-plot__controls button:hover { color: var(--color-primary-strong); border-color: #a9c4b3; }
 .plotly-shell { width: 100%; min-height: 320px; height: 100%; }
 .plotly-chart { min-height: 320px; }
@@ -160,7 +167,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .panel__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .panel__header h2 { margin: 2px 0 0; font-size: 14px; letter-spacing: -0.02em; }
 .panel__eyebrow { display: none; }
-.muted-label { color: var(--color-text-muted); font-size: 9px; }
+.muted-label { color: var(--color-text-muted); font-size: 11px; }
 .text-link { color: var(--color-primary-strong); font-size: 10px; font-weight: 750; text-decoration: none; }
 .text-link:hover { text-decoration: underline; }
 .button-link { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); padding: 0 14px; font-size: 11px; font-weight: 750; text-decoration: none; }
@@ -198,7 +205,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .upload-zone span { color: var(--color-text-muted); font-size: 9px; }
 .required-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px; margin-top: 14px; padding: 13px; border-radius: var(--radius-sm); background: #f6f9f7; }
 .required-columns h3 { grid-column: 1 / -1; margin: 0 0 3px; font-size: 11px; }
-.required-columns span { display: flex; align-items: center; gap: 6px; color: #41564c; font-size: 9px; }
+.required-columns span { display: flex; align-items: center; gap: 6px; color: #41564c; font-size: 11px; }
 .required-columns svg { color: var(--color-primary); }
 .validation-banner { display: flex; align-items: flex-start; gap: 8px; margin-top: 10px; border-radius: var(--radius-sm); padding: 10px; font-size: 10px; }
 .validation-banner--success { color: var(--color-primary-strong); border: 1px solid #b9dec8; background: var(--color-primary-soft); }
@@ -212,7 +219,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .workflow-stepper__active > span { background: var(--color-primary) !important; }
 .workflow-stepper div { min-width: 0; display: grid; gap: 2px; padding-right: 10px; }
 .workflow-stepper strong { font-size: 10px; }
-.workflow-stepper small { overflow: hidden; color: var(--color-text-muted); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.workflow-stepper small { overflow: hidden; color: var(--color-text-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .planner-grid { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(390px, 1.5fr) minmax(250px, .85fr); gap: 14px; align-items: start; }
 .planner-config, .planner-results { display: grid; gap: 13px; }
 .planner-note, .planner-disclaimer { color: var(--color-text-muted); font-size: 10px; line-height: 1.5; }
@@ -227,7 +234,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .rover-status-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .rover-status-card { min-height: 76px; display: grid; grid-template-columns: 28px 1fr; align-content: center; gap: 2px 8px; padding: 12px 0; border-width: 1px 0 0; border-radius: 0; background: transparent; }
 .rover-status-card svg { grid-row: 1 / 3; align-self: center; color: var(--color-primary); }
-.rover-status-card span { color: var(--color-text-muted); font-size: 9px; }
+.rover-status-card span { color: var(--color-text-muted); font-size: 11px; }
 .rover-status-card strong { font-size: 12px; text-transform: capitalize; }
 .rover-main-grid { display: grid; grid-template-columns: minmax(380px, 1.5fr) minmax(250px, .7fr); gap: 14px; }
 .rover-lower-grid { display: grid; grid-template-columns: minmax(300px, .75fr) minmax(420px, 1.25fr); gap: 14px; }
@@ -251,7 +258,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .evaluation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .evaluation-toolbar .button { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
 .evaluation-grid { display: grid; grid-template-columns: minmax(460px, 1.45fr) minmax(340px, .85fr); gap: 14px; }
-.chart-card .plotly-shell { min-height: 390px; height: min(44vw, 520px); }
+.chart-card .plotly-shell { min-height: 480px; height: min(48vw, 620px); }
 .subsection-title { margin: 18px 0 9px; font-size: 11px; }
 .efficiency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .hero-metric { display: block; margin: 8px 0; color: var(--color-primary-strong); font-size: 30px; letter-spacing: -0.04em; }
@@ -272,11 +279,13 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .app-shell { display: block; }
   .sidebar { position: fixed; left: 0; width: min(82vw, 286px); transform: translateX(-102%); transition: transform var(--duration-normal) var(--ease-out); box-shadow: 20px 0 50px rgb(23 43 36 / 0.16); }
   .sidebar--open { transform: translateX(0); }
-  .top-header { min-height: 72px; }
+  .top-header { min-height: 72px; flex-wrap: wrap; }
   .top-header__menu { display: inline-grid; }
   .top-header__identity { min-width: 0; }
   .top-header__identity p { display: none; }
-  .experiment-select { display: none; }
+  .top-header__tools { width: 100%; }
+  .experiment-select { display: block; width: 100%; }
+  .experiment-select select { width: 100%; max-width: none; min-height: 44px; font-size: 12px; }
   .navigation-scrim { position: fixed; inset: 0; z-index: 25; display: block; width: 100%; height: 100%; border: 0; background: rgb(23 43 36 / 0.36); }
   .main-content { padding: 16px 14px 32px; }
   .page-context > span:not(.provenance-badge) { display: none; }
@@ -294,6 +303,8 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .rover-status-grid { grid-template-columns: 1fr 1fr; }
   .safety-banner { align-items: flex-start; flex-wrap: wrap; }
   .evaluation-toolbar { align-items: stretch; flex-direction: column; }
+  .tabs__tab { padding-inline: 14px; }
+  .chart-card .plotly-shell { min-height: 430px; height: 430px; }
   .efficiency-grid { grid-template-columns: 1fr; }
 }
 

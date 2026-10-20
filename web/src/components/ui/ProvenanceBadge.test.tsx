@@ -13,4 +13,14 @@ describe('ProvenanceBadge', () => {
     render(<ProvenanceBadge provenance={provenance} />)
     expect(screen.getByText(label)).toBeInTheDocument()
   })
+
+  it.each([
+    ['demo', 'Demo data'],
+    ['algorithm-generated', 'Algorithm-generated'],
+  ] as const)('renders %s provenance without a data icon', (provenance, label) => {
+    const { container } = render(<ProvenanceBadge provenance={provenance} />)
+
+    expect(screen.getByText(label)).toBeInTheDocument()
+    expect(container.querySelector('svg')).not.toBeInTheDocument()
+  })
 })

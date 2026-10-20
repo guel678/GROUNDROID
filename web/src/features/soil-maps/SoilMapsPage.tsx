@@ -24,10 +24,10 @@ export function SoilMapsPage() {
   return <div className="soil-maps-page page-stack">
     <div className="page-context"><ProvenanceBadge provenance={layer.provenance} /><span>{layer.status} surface · simulated interpolation for interface demonstration</span></div>
     <Card className="panel map-tabs-card"><Tabs label="Soil property" items={properties} active={property} onChange={setProperty} /></Card>
-    <section className="soil-map-grid">
+    <div id={`soil-property-panel-${property}`} role="tabpanel" aria-labelledby={`soil-property-tab-${property}`} className="soil-property-panel"><section className="soil-map-grid">
       <Card className="panel soil-map-panel"><div className="panel__header"><div><p className="panel__eyebrow">{layer.status} surface</p><h2>{layer.label} map</h2></div><span className="unit-pill">{layer.unit}</span></div><SoilHeatmap layer={layer} points={experiment.samplingPoints} showPoints={showPoints} showBoundary={showBoundary} width={experiment.width} length={experiment.length} /></Card>
       <Card className="panel"><div className="panel__header"><div><p className="panel__eyebrow">Visualization settings</p><h2>Map controls</h2></div></div><SoilMapControls showPoints={showPoints} showBoundary={showBoundary} onPoints={setShowPoints} onBoundary={setShowBoundary} /></Card>
-    </section>
+    </section></div>
     <Card className="panel"><div className="panel__header"><div><p className="panel__eyebrow">Supporting observations</p><h2>Sampling points ({experiment.measurements.length})</h2></div><span className="unit-pill">{layer.unit}</span></div><MeasurementTable measurements={experiment.measurements} property={property} unit={layer.unit} /></Card>
   </div>
 }
