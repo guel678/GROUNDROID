@@ -1,0 +1,15 @@
+import { Download } from 'lucide-react'
+import { useState } from 'react'
+import { Button } from '../../components/ui/Button'
+import { EmptyState } from '../../components/ui/EmptyState'
+import { ProvenanceBadge } from '../../components/ui/ProvenanceBadge'
+import { Tabs } from '../../components/ui/Tabs'
+import { useExperiment } from '../../state/ExperimentProvider'
+import { selectActiveExperiment } from '../../state/selectors'
+import { downloadCsv } from '../../utils/export'
+import { ReconstructionAccuracy } from './ReconstructionAccuracy'
+import { SensorAccuracy } from './SensorAccuracy'
+import { SystemEfficiency } from './SystemEfficiency'
+
+type EvaluationTab = 'sensor' | 'reconstruction' | 'efficiency'
+export function EvaluationPage() { const { state } = useExperiment(); const experiment = selectActiveExperiment(state); const [tab, setTab] = useState<EvaluationTab>('sensor'); if (!experiment) return <EmptyState title="No active experiment" description="Select an experiment before evaluating results." />; const dataset = experiment.evaluation; if (!dataset) return <EmptyState title="Evaluation unavailable" description="This experiment has no evaluation dataset. Complete a simulated run or import validated results." />; const exportRows = dataset.metrics.map((metric) => ({ experiment: experiment.name, property: metric.property, unit: metric.unit, mae: metric.mae, rmse: metric.rmse, r_squared: metric.rSquared, provenance: dataset.provenance })); return <div className="evaluation-page page-stack"><div className="evaluation-toolbar"><div className="page-context"><ProvenanceBadge provenance={dataset.provenance} /><span>Illustrative metrics · not validated research findings</span></div><Button variant="secondary" aria-label="Export evaluation CSV" onClick={() => downloadCsv('groundroid-evaluation-demo.csv', exportRows)}><Download size={14} /> Export CSV</Button></div><Tabs label="Evaluation view" items={[{ id: 'sensor', label: 'Sensor accuracy' }, { id: 'reconstruction', label: 'Reconstruction accuracy' }, { id: 'efficiency', label: 'System efficiency' }]} active={tab} onChange={setTab} />{tab === 'sensor' ? <SensorAccuracy dataset={dataset} /> : tab === 'reconstruction' ? <ReconstructionAccuracy dataset={dataset} /> : <SystemEfficiency />}</div> }

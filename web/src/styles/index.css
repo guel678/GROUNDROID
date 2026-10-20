@@ -255,10 +255,18 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .map-controls { display: grid; gap: 14px; }
 .toggle-row { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #edf1ef; color: #34473f; font-size: 10px; font-weight: 650; }
 .toggle-row input { width: 34px; height: 18px; accent-color: var(--color-primary); }
+.evaluation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.evaluation-toolbar .button { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.evaluation-grid { display: grid; grid-template-columns: minmax(460px, 1.45fr) minmax(340px, .85fr); gap: 14px; }
+.chart-card .plotly-shell { min-height: 390px; height: min(44vw, 520px); }
+.subsection-title { margin: 18px 0 9px; font-size: 11px; }
+.efficiency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.hero-metric { display: block; margin: 8px 0; color: var(--color-primary-strong); font-size: 30px; letter-spacing: -0.05em; }
 @media (max-width: 1100px) { .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .reading-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 1180px) { .planner-grid { grid-template-columns: minmax(220px, .7fr) minmax(380px, 1.3fr); } .planner-grid > :last-child { grid-column: 1 / -1; } }
 @media (max-width: 1080px) { .rover-main-grid, .rover-lower-grid { grid-template-columns: 1fr; } }
 @media (max-width: 1000px) { .soil-map-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1040px) { .evaluation-grid { grid-template-columns: 1fr; } }
 
 @media (max-width: 980px) {
   .top-header__tools time, .connection-pill { display: none; }
@@ -293,6 +301,8 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .workflow-stepper li::after { display: none; }
   .rover-status-grid { grid-template-columns: 1fr 1fr; }
   .safety-banner { align-items: flex-start; flex-wrap: wrap; }
+  .evaluation-toolbar { align-items: stretch; flex-direction: column; }
+  .efficiency-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

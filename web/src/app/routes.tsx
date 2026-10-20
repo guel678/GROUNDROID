@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { AppShell } from '../components/layout/AppShell'
@@ -7,16 +6,7 @@ import { FieldDataPage } from '../features/field-data/FieldDataPage'
 import { SamplingPlannerPage } from '../features/sampling-planner/SamplingPlannerPage'
 import { RoverControlPage } from '../features/rover-control/RoverControlPage'
 import { SoilMapsPage } from '../features/soil-maps/SoilMapsPage'
-
-function PagePlaceholder({ children }: { children: ReactNode }) {
-  return (
-    <section className="page-placeholder" aria-label={`${String(children)} content`}>
-      <p className="eyebrow">Groundroid research workspace</p>
-      <h2>{children}</h2>
-      <p>This research surface is being assembled from the approved Groundroid specification.</p>
-    </section>
-  )
-}
+import { EvaluationPage } from '../features/evaluation/EvaluationPage'
 
 export function GroundroidRoutes() {
   return (
@@ -27,7 +17,7 @@ export function GroundroidRoutes() {
         <Route path="sampling-planner" element={<SamplingPlannerPage />} />
         <Route path="rover-control" element={<RoverControlPage />} />
         <Route path="soil-maps" element={<SoilMapsPage />} />
-        <Route path="evaluation" element={<PagePlaceholder>System Performance Evaluation</PagePlaceholder>} />
+        <Route path="evaluation" element={<EvaluationPage />} />
       </Route>
     </Routes>
   )

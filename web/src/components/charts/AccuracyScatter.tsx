@@ -1,0 +1,5 @@
+import type { Data } from 'plotly.js'
+import type { EvaluationPair } from '../../types/domain'
+import { Plot } from './Plot'
+
+export function AccuracyScatter({ pairs }: { pairs: EvaluationPair[] }) { const values = pairs.flatMap((pair) => [pair.reference, pair.measured]); const low = Math.min(...values); const high = Math.max(...values); const data: Data[] = [{ type: 'scatter', mode: 'markers', x: pairs.map((pair) => pair.reference), y: pairs.map((pair) => pair.measured), marker: { color: '#168451', size: 8 }, name: 'Demo points' }, { type: 'scatter', mode: 'lines', x: [low, high], y: [low, high], line: { color: '#718078', dash: 'dash', width: 1.5 }, name: 'Ideal fit' }]; return <Plot ariaLabel="Sensor accuracy scatter chart" data={data} layout={{ xaxis: { title: { text: 'Reference measurement (%)' } }, yaxis: { title: { text: 'Rover measurement (%)' } }, legend: { orientation: 'h' } }} /> }
