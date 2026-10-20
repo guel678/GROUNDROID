@@ -248,9 +248,17 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .mission-buttons .button:nth-last-child(1) { grid-column: 1 / -1; }
 .command-notice { margin: 12px 0 0; padding: 9px; border-radius: var(--radius-sm); color: var(--color-text-muted); background: #f4f7f5; font-size: 9px; line-height: 1.45; }
 .reading-grid--compact { grid-template-columns: repeat(3, 1fr); }
+.map-tabs-card { padding-block: 0; }
+.soil-map-grid { display: grid; grid-template-columns: minmax(480px, 1.6fr) minmax(240px, .6fr); gap: 14px; }
+.soil-map-panel .plotly-shell { height: min(54vw, 560px); min-height: 380px; }
+.unit-pill { min-height: 24px; display: inline-flex; align-items: center; border-radius: 999px; padding: 2px 9px; color: var(--color-primary-strong); background: var(--color-primary-soft); font-size: 10px; font-weight: 800; }
+.map-controls { display: grid; gap: 14px; }
+.toggle-row { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #edf1ef; color: #34473f; font-size: 10px; font-weight: 650; }
+.toggle-row input { width: 34px; height: 18px; accent-color: var(--color-primary); }
 @media (max-width: 1100px) { .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .reading-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 1180px) { .planner-grid { grid-template-columns: minmax(220px, .7fr) minmax(380px, 1.3fr); } .planner-grid > :last-child { grid-column: 1 / -1; } }
 @media (max-width: 1080px) { .rover-main-grid, .rover-lower-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .soil-map-grid { grid-template-columns: 1fr; } }
 
 @media (max-width: 980px) {
   .top-header__tools time, .connection-pill { display: none; }

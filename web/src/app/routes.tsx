@@ -6,6 +6,7 @@ import { DashboardPage } from '../features/dashboard/DashboardPage'
 import { FieldDataPage } from '../features/field-data/FieldDataPage'
 import { SamplingPlannerPage } from '../features/sampling-planner/SamplingPlannerPage'
 import { RoverControlPage } from '../features/rover-control/RoverControlPage'
+import { SoilMapsPage } from '../features/soil-maps/SoilMapsPage'
 
 function PagePlaceholder({ children }: { children: ReactNode }) {
   return (
@@ -25,7 +26,7 @@ export function GroundroidRoutes() {
         <Route path="field-data" element={<FieldDataPage />} />
         <Route path="sampling-planner" element={<SamplingPlannerPage />} />
         <Route path="rover-control" element={<RoverControlPage />} />
-        <Route path="soil-maps" element={<PagePlaceholder>Soil Condition Maps</PagePlaceholder>} />
+        <Route path="soil-maps" element={<SoilMapsPage />} />
         <Route path="evaluation" element={<PagePlaceholder>System Performance Evaluation</PagePlaceholder>} />
       </Route>
     </Routes>
