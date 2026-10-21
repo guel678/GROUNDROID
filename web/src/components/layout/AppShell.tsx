@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import { Sidebar } from './Sidebar'
@@ -33,11 +33,48 @@ const pageMeta: Record<string, { title: string; description: string }> = {
 
 export function AppShell() {
   const [navigationOpen, setNavigationOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
   const { pathname } = useLocation()
   const meta = pageMeta[pathname] ?? pageMeta['/']
 
+  const closeNavigation = (restoreFocus = false) => {
+    setNavigationOpen(false)
+    if (restoreFocus) menuButtonRef.current?.focus()
+  }
+
+  useEffect(() => {
+    if (!navigationOpen) return
+
+    const sidebar = document.getElementById('primary-sidebar')
+    const focusable = Array.from(sidebar?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [])
+    focusable[0]?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeNavigation(true)
+        return
+      }
+
+      if (event.key !== 'Tab' || focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [navigationOpen])
+
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Sidebar
         mobileOpen={navigationOpen}
         onNavigate={() => setNavigationOpen(false)}
@@ -47,12 +84,17 @@ export function AppShell() {
           className="navigation-scrim"
           type="button"
           aria-label="Close navigation"
-          onClick={() => setNavigationOpen(false)}
+          onClick={() => closeNavigation(true)}
         />
       ) : null}
       <div className="app-shell__workspace">
-        <TopHeader meta={meta} onOpenNavigation={() => setNavigationOpen(true)} />
-        <main className="main-content" id="main-content">
+        <TopHeader
+          menuButtonRef={menuButtonRef}
+          meta={meta}
+          navigationOpen={navigationOpen}
+          onOpenNavigation={() => setNavigationOpen(true)}
+        />
+        <main className="main-content" id="main-content" inert={navigationOpen ? true : undefined}>
           <Outlet />
         </main>
       </div>

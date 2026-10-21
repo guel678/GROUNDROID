@@ -1,5 +1,10 @@
-# Future FastAPI adapter
+# Groundroid demo API
 
-No backend is implemented in this prototype. A future FastAPI service should own persistence, validated CSV ingestion, scientific sampling/reconstruction algorithms, experiment history, and authenticated rover command routing.
+This temporary FastAPI service persists demo experiments and soil measurements in SQLite. Sampling, reconstruction, and rover behavior remain simulated in the web app.
 
-Implement against the typed contracts in `web/src/services/contracts.ts`. Preserve provenance in every response and reject partial dataset writes transactionally. SQLite is suitable for the initial single-station research deployment; schema and migrations remain intentionally out of scope here.
+```powershell
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload
+```
+
+The API runs at `http://localhost:8000`. Delete `groundroid-demo.db` to reset the demonstration database.
