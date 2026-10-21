@@ -37,7 +37,20 @@ describe('Groundroid application shell', () => {
 
     expect(screen.getByRole('link', { name: 'Field Data' })).toHaveAttribute('aria-current', 'page')
     const menu = screen.getByRole('button', { name: /open navigation/i })
+    expect(menu).toHaveAttribute('aria-expanded', 'false')
+    expect(menu).toHaveAttribute('aria-controls', 'primary-sidebar')
+
     await user.click(menu)
+
+    expect(menu).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByRole('button', { name: /close navigation/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveFocus()
+    expect(screen.getByRole('main')).toHaveAttribute('inert')
+
+    await user.keyboard('{Escape}')
+
+    expect(menu).toHaveAttribute('aria-expanded', 'false')
+    expect(menu).toHaveFocus()
+    expect(screen.getByRole('main')).not.toHaveAttribute('inert')
   })
 })

@@ -109,7 +109,7 @@ export const demoExperiments: Experiment[] = [
     id: 'orchard-block-b',
     name: 'Orchard Block B',
     description: 'Secondary deterministic demo field.',
-    width: 16,
+    width: 20,
     length: 24,
     coordinateReference: 'Local Field (0,0)',
     createdAt: '2025-05-09T08:00:00.000Z',

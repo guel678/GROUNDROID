@@ -17,9 +17,9 @@ export function Plot({ data, layout, mobileLayout, ariaLabel }: { data: Data[]; 
   const sharedLayout: Partial<Layout> = {
     autosize: true,
     margin: { l: 52, r: 18, t: 24, b: 46 },
-    font: { family: 'Inter, Segoe UI, sans-serif', color: '#172b24', size: 11 },
+    font: { family: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif', color: '#273a32', size: 12 },
     paper_bgcolor: 'transparent',
-    plot_bgcolor: '#fbfdfc',
+    plot_bgcolor: 'transparent',
     ...layout,
     ...(compact ? mobileLayout : undefined),
     xaxis: { ...layout?.xaxis, ...(compact ? mobileLayout?.xaxis : undefined) },
